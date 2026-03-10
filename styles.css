@@ -92,9 +92,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 3rem;
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 2rem 3rem;
 }
 
 .logo-link {
@@ -169,8 +170,10 @@ body {
   color: #929292;
 }
 
-/* --- Footer --- */
+/* --- Footer (в потоке страницы, после hero, поверх фона) --- */
 .footer {
+  position: relative;
+  z-index: 1;
   padding: 2.5rem 3rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
