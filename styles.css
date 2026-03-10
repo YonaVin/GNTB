@@ -34,9 +34,26 @@ body {
   inset: 0;
   background: #000 url('background.png') no-repeat center center;
   background-size: cover;
+  /* Движение вперёд–назад */
+  animation: dotsFloat 16s ease-in-out infinite;
 }
 
-/* Light oval: moves right→left and back, diagonal */
+@keyframes dotsFloat {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+  }
+  25% {
+    transform: scale(1.03) translate(1.2%, 0.8%);
+  }
+  50% {
+    transform: scale(0.98) translate(-0.8%, -0.5%);
+  }
+  75% {
+    transform: scale(1.02) translate(0.5%, 1%);
+  }
+}
+
+/* Light oval: траектория вдоль волны фона (низ слева → подъём вправо → гребень) */
 .light-line {
   position: absolute;
   top: 50%;
@@ -64,18 +81,55 @@ body {
     black 0%,
     transparent 65%
   );
-  transform: rotate(25deg);
+  /* Угол по направлению волны: снизу слева вверх вправо (~-38°) */
+  transform: rotate(-38deg);
   transform-origin: center center;
-  animation: lightOval 10s ease-in-out infinite;
+  animation: lightOval 12s ease-in-out infinite;
   pointer-events: none;
 }
 
 @keyframes lightOval {
+  /* Движение вдоль волны: от низа слева → вверх вправо (гребень) → обратно */
   0%, 100% {
-    transform: rotate(25deg) translate(100vw, -100vh);
+    transform: rotate(-38deg) translate(-70vw, 55vh);
   }
   50% {
-    transform: rotate(25deg) translate(-100vw, 100vh);
+    transform: rotate(-38deg) translate(70vw, -45vh);
+  }
+}
+
+/* Второй эффект: узкая световая полоска вдоль гребня волны */
+.light-line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -50%;
+  width: 200%;
+  height: 2px;
+  margin-top: -1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(255, 255, 255, 0.35) 48%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.35) 52%,
+    transparent 58%,
+    transparent 100%
+  );
+  box-shadow: 0 0 30px 8px rgba(255, 255, 255, 0.08);
+  animation: lightCrest 14s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes lightCrest {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateX(-15%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(15%);
   }
 }
 
