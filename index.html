@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GNTB — Gurufin National Trust Bank</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-wrap">
+    <div class="background" role="img" aria-label="Abstract dotted surface"></div>
+    <div class="light-line" aria-hidden="true"></div>
+  </div>
+
+  <header class="header">
+    <a href="/" class="logo-link">
+      <img src="logowhite.png" alt="GNTB" class="logo-img" width="121" height="34">
+    </a>
+    <button type="button" class="btn-contact" id="contact-btn" data-email="gntb@gurufin.com" aria-label="Copy email gntb@gurufin.com">Contact</button>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <h1 class="title-sub">Gurufin National Trust Bank</h1>
+      <p class="description">
+        Enterprise settlement, governed. Controls, documented. Redemption, reliable.
+      </p>
+      <p class="coming-soon">— Coming Soon</p>
+      <p class="features">
+        Safety & Soundness Focus | Institutional-Grade Controls | Controlled, Phased Launch
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">© GNTB. All rights reserved. Privacy Terms. This site is for informational purposes only.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var contactBtn = document.getElementById('contact-btn');
+      var email = 'gntb@gurufin.com';
+      var labelCopy = 'Contact';
+      var labelCopied = 'Copied!';
+
+      function copyEmail() {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(function () {
+            contactBtn.textContent = labelCopied;
+            setTimeout(function () {
+              contactBtn.textContent = labelCopy;
+            }, 2000);
+          }).catch(function () {
+            fallbackCopy();
+          });
+        } else {
+          fallbackCopy();
+        }
+      }
+
+      function fallbackCopy() {
+        var input = document.createElement('input');
+        input.value = email;
+        input.setAttribute('readonly', '');
+        input.style.position = 'absolute';
+        input.style.left = '-9999px';
+        document.body.appendChild(input);
+        input.select();
+        try {
+          document.execCommand('copy');
+          contactBtn.textContent = labelCopied;
+          setTimeout(function () {
+            contactBtn.textContent = labelCopy;
+          }, 2000);
+        } catch (e) {}
+        document.body.removeChild(input);
+      }
+
+      contactBtn.addEventListener('click', copyEmail);
+    })();
+  </script>
+</body>
+</html>

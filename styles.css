@@ -1,0 +1,221 @@
+/* --- Reset & base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #fff;
+  background: #000;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* --- Background & light line --- */
+.background-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  background: #000 url('background.png') no-repeat center center;
+  background-size: cover;
+}
+
+/* Light oval: moves right→left and back, diagonal */
+.light-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vmax;
+  height: 40vmin;
+  margin-left: -60vmax;
+  margin-top: -20vmin;
+  background: radial-gradient(
+    ellipse 70% 70% at center,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.02) 45%,
+    transparent 60%
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 120px 60px rgba(255, 255, 255, 0.04);
+  mask-image: radial-gradient(
+    ellipse 100% 100% at center,
+    black 0%,
+    transparent 65%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 100% 100% at center,
+    black 0%,
+    transparent 65%
+  );
+  transform: rotate(25deg);
+  transform-origin: center center;
+  animation: lightOval 10s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes lightOval {
+  0%, 100% {
+    transform: rotate(25deg) translate(100vw, -100vh);
+  }
+  50% {
+    transform: rotate(25deg) translate(-100vw, 100vh);
+  }
+}
+
+/* --- Layout --- */
+.header,
+.main,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Header --- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo-link {
+  display: block;
+  line-height: 0;
+  align-self: stretch;
+}
+
+.logo-img {
+  display: block;
+  height: 34px;
+  width: auto;
+  aspect-ratio: 121 / 34;
+  object-fit: contain;
+}
+
+.btn-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  flex: 1 0 0;
+  max-width: fit-content;
+  padding: 0 1rem;
+  background: #FFF;
+  color: #000;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-contact:hover {
+  opacity: 0.9;
+}
+
+/* --- Main content --- */
+.main {
+  padding: 220px 3rem 6rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.title-sub {
+  color: #FFF;
+  font-family: Inter, sans-serif;
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 97.469%;
+  margin-bottom: 24px;
+}
+
+.description {
+  color: #FFF;
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 97.469%;
+  max-width: 42ch;
+  margin-bottom: 40px;
+}
+
+.coming-soon {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #929292;
+}
+
+/* --- Footer --- */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero .features {
+  color: #FFF;
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 97.469%;
+  margin-top: 20rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.footer .footer-text {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .header,
+  .main,
+  .footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .main {
+    padding-bottom: 8rem;
+  }
+
+  .footer {
+    padding-bottom: 1.5rem;
+  }
+
+  .hero .features {
+    font-size: 0.8rem;
+  }
+}
