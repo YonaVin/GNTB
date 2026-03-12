@@ -252,15 +252,53 @@ body {
     padding-right: 1.5rem;
   }
 
+  .header {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
   .main {
+    padding-top: 100px;
     padding-bottom: 8rem;
+  }
+
+  .title-sub {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .description {
+    font-size: 18px;
+    margin-bottom: 28px;
+    max-width: 100%;
+  }
+
+  .coming-soon {
+    margin-top: 2rem;
+  }
+
+  .hero .features {
+    font-size: 0.875rem;
+    margin-top: 4rem;
   }
 
   .footer {
     padding-bottom: 1.5rem;
   }
+}
 
-  .hero .features {
-    font-size: 0.8rem;
+@media (max-width: 480px) {
+  .main {
+    padding-top: 80px;
+  }
+
+  .title-sub {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .description {
+    font-size: 16px;
+    margin-bottom: 24px;
   }
 }
