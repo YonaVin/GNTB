@@ -226,13 +226,8 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 97.469%;
-  max-width: 42ch;
+  white-space: nowrap;
   margin-bottom: 40px;
-}
-
-.description-line2 {
-  display: inline-block;
-  margin-top: 0.75em;
 }
 
 .coming-soon {
@@ -291,7 +286,7 @@ body {
     font-size: 18px;
     line-height: 1.5;
     margin-bottom: 1.75rem;
-    max-width: 100%;
+    white-space: normal;
   }
 
   .coming-soon {
@@ -327,6 +322,7 @@ body {
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 1.5rem;
+    white-space: normal;
   }
 
   .coming-soon {
