@@ -44,6 +44,7 @@ body {
   pointer-events: none;
 }
 
+
 /* Light oval: траектория вдоль волны фона (низ слева → подъём вправо → гребень) */
 .light-line {
   position: absolute;
@@ -248,38 +249,38 @@ body {
   .header,
   .main,
   .footer {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   .header {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .main {
-    padding-top: 100px;
-    padding-bottom: 8rem;
+    padding-top: 56px;
+    padding-bottom: 6rem;
   }
 
   .title-sub {
     font-size: 32px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .description {
     font-size: 18px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     max-width: 100%;
   }
 
   .coming-soon {
-    margin-top: 2rem;
+    margin-top: 1.25rem;
   }
 
   .hero .features {
     font-size: 0.875rem;
-    margin-top: 4rem;
+    margin-top: 2.5rem;
   }
 
   .footer {
@@ -288,17 +289,31 @@ body {
 }
 
 @media (max-width: 480px) {
+  .header {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
   .main {
-    padding-top: 80px;
+    padding-top: 40px;
+    padding-bottom: 5rem;
   }
 
   .title-sub {
     font-size: 28px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .description {
     font-size: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+  }
+
+  .coming-soon {
+    margin-top: 1rem;
+  }
+
+  .hero .features {
+    margin-top: 2rem;
   }
 }

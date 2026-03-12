@@ -12,7 +12,7 @@
 <body>
   <div class="background-wrap">
     <div class="background" aria-hidden="true"></div>
-    <video class="background-video" autoplay loop muted playsinline preload="auto" aria-hidden="true" id="bg-video">
+    <video class="background-video" autoplay loop muted playsinline preload="auto" disablePictureInPicture disableRemotePlayback aria-hidden="true" id="bg-video">
       <source src="video.mp4" type="video/mp4">
     </video>
     <div class="light-line" aria-hidden="true"></div>
@@ -90,21 +90,34 @@
       var video = document.getElementById('bg-video');
       if (!video) return;
       video.muted = true;
+      video.volume = 0;
       video.playsInline = true;
       video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
       function ensurePlay() {
         if (video.paused) {
           video.play().catch(function () {});
         }
       }
       video.addEventListener('loadeddata', ensurePlay);
+      video.addEventListener('canplay', ensurePlay);
+      video.addEventListener('canplaythrough', ensurePlay);
       video.addEventListener('pause', ensurePlay);
       video.addEventListener('ended', ensurePlay);
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') ensurePlay();
+      });
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', ensurePlay);
+        document.addEventListener('DOMContentLoaded', function () {
+          ensurePlay();
+          requestAnimationFrame(ensurePlay);
+        });
       } else {
         ensurePlay();
+        requestAnimationFrame(ensurePlay);
       }
+      setTimeout(ensurePlay, 100);
+      setTimeout(ensurePlay, 500);
     })();
   </script>
 </body>
