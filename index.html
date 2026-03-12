@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>GNTB — Gurufin National Trust Bank</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,13 +91,16 @@
     (function () {
       var video = document.getElementById('bg-video');
       if (!video) return;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
       video.muted = true;
       video.volume = 0;
       video.playsInline = true;
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
+      video.defaultMuted = true;
       function ensurePlay() {
         if (video.paused) {
+          video.muted = true;
           video.play().catch(function () {});
         }
       }
@@ -104,6 +109,12 @@
       video.addEventListener('canplaythrough', ensurePlay);
       video.addEventListener('pause', ensurePlay);
       video.addEventListener('ended', ensurePlay);
+      window.addEventListener('load', function () {
+        ensurePlay();
+        setTimeout(ensurePlay, 200);
+        setTimeout(ensurePlay, 800);
+        setTimeout(ensurePlay, 1500);
+      });
       document.addEventListener('visibilitychange', function () {
         if (document.visibilityState === 'visible') ensurePlay();
       });

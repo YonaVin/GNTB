@@ -19,6 +19,8 @@ body {
   background: #000;
   min-height: 100vh;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* --- Background & light line --- */
@@ -42,6 +44,23 @@ body {
   height: 100%;
   object-fit: cover;
   pointer-events: none;
+}
+
+/* Скрыть нативную кнопку воспроизведения на мобильных (фон — не интерактивное видео) */
+.background-video::-webkit-media-controls-panel,
+.background-video::-webkit-media-controls-play-button,
+.background-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+.background-video::-webkit-media-controls {
+  display: none !important;
+}
+@supports (-webkit-touch-callout: none) {
+  .background-video {
+    -webkit-touch-callout: none;
+  }
 }
 
 
@@ -183,9 +202,11 @@ body {
 
 /* --- Main content --- */
 .main {
+  flex: 1;
   padding: 240px 3rem 6rem;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .title-sub {
@@ -217,13 +238,16 @@ body {
   margin-top: 4rem;
 }
 
-/* --- Footer (в потоке страницы, после hero, поверх фона) --- */
+/* --- Footer (прижат к низу экрана) --- */
 .footer {
   position: relative;
   z-index: 1;
+  margin-top: auto;
   padding: 2.5rem 3rem 2rem;
   max-width: 1400px;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 .hero .features {
@@ -259,61 +283,74 @@ body {
   }
 
   .main {
-    padding-top: 56px;
-    padding-bottom: 6rem;
+    padding-top: 80px;
+    padding-bottom: 4rem;
   }
 
   .title-sub {
     font-size: 32px;
-    margin-bottom: 16px;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
   }
 
   .description {
     font-size: 18px;
-    margin-bottom: 20px;
+    line-height: 1.5;
+    margin-bottom: 1.75rem;
     max-width: 100%;
   }
 
   .coming-soon {
-    margin-top: 1.25rem;
+    font-size: 1.125rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   .hero .features {
     font-size: 0.875rem;
-    margin-top: 2.5rem;
+    line-height: 1.5;
+    margin-top: 3rem;
+    margin-bottom: 0;
   }
 
   .footer {
-    padding-bottom: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 }
 
 @media (max-width: 480px) {
   .header {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
   }
 
   .main {
-    padding-top: 40px;
-    padding-bottom: 5rem;
+    padding-top: 180px;
+    padding-bottom: 3rem;
   }
 
   .title-sub {
     font-size: 28px;
-    margin-bottom: 12px;
+    line-height: 1.25;
+    margin-bottom: 1rem;
   }
 
   .description {
     font-size: 16px;
-    margin-bottom: 16px;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
   }
 
   .coming-soon {
-    margin-top: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
   }
 
   .hero .features {
-    margin-top: 2rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    margin-top: 6rem;
   }
 }
