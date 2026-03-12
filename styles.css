@@ -182,7 +182,7 @@ body {
 
 /* --- Main content --- */
 .main {
-  padding: 220px 3rem 6rem;
+  padding: 240px 3rem 6rem;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -213,6 +213,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.08em;
   color: #929292;
+  margin-top: 4rem;
 }
 
 /* --- Footer (в потоке страницы, после hero, поверх фона) --- */
