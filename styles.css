@@ -32,25 +32,16 @@ body {
 .background {
   position: absolute;
   inset: 0;
-  background: #000 url('background.png') no-repeat center center;
-  background-size: cover;
-  /* Движение вперёд–назад */
-  animation: dotsFloat 16s ease-in-out infinite;
+  background: #000;
 }
 
-@keyframes dotsFloat {
-  0%, 100% {
-    transform: scale(1) translate(0, 0);
-  }
-  25% {
-    transform: scale(1.03) translate(1.2%, 0.8%);
-  }
-  50% {
-    transform: scale(0.98) translate(-0.8%, -0.5%);
-  }
-  75% {
-    transform: scale(1.02) translate(0.5%, 1%);
-  }
+.background-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
 }
 
 /* Light oval: траектория вдоль волны фона (низ слева → подъём вправо → гребень) */
