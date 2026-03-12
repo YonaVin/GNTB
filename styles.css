@@ -230,6 +230,11 @@ body {
   margin-bottom: 40px;
 }
 
+.description-line2 {
+  display: inline-block;
+  margin-top: 0.75em;
+}
+
 .coming-soon {
   font-size: 1.25rem;
   font-weight: 500;
