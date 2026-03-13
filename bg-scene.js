@@ -13,7 +13,7 @@
     6,
     Math.cos(CAM_ANGLE) * DIST
   );
-  camera.lookAt(0, -9, -4);
+  camera.lookAt(0, -4, 0);
 
   var canvasEl = document.getElementById('bg-canvas');
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvasEl || undefined });
@@ -61,11 +61,6 @@
   const X_OFFSET = 60 * SPACING;
   const Z_OFFSET = 25 * SPACING;
   const maxZ = (ROWS / 2) * SPACING + Z_OFFSET;
-  const minZ = -(ROWS / 2) * SPACING - Z_OFFSET;
-  const zRange = maxZ - minZ;
-
-  /* Наклон полотна: начало (зад) выше, конец (перед) ниже — полотно идёт сверху до середины и дальше */
-  const TILT_ANGLE = 0.2;
 
   for (let row = 0; row < ROWS; row++) {
     const zigzag = (row % 2 === 0) ? SPACING * 0.5 : 0;
@@ -76,28 +71,20 @@
       const scale = 0.9625 + Math.random() * 0.075;
       const rx = (Math.random() - 0.5) * SPACING * 0.15;
       const rz = (Math.random() - 0.5) * SPACING * 0.15;
-      const px = x + rx;
-      const pz = z + rz;
-      const stripNorm = Math.max(0, Math.min(1, (pz - minZ) / zRange));
-      const scaleWide = 0.52 + 0.48 * stripNorm;
-      const scaleFinal = scale * scaleWide;
-      positions.push({ x: px, z: pz, phase, scale, scaleWide });
-      const y0 = 0;
-      const yTilt = y0 * Math.cos(TILT_ANGLE) - pz * Math.sin(TILT_ANGLE);
-      const zTilt = y0 * Math.sin(TILT_ANGLE) + pz * Math.cos(TILT_ANGLE);
-      dummy.position.set(px, yTilt, zTilt);
-      dummy.scale.setScalar(scaleFinal);
+      positions.push({ x: x + rx, z: z + rz, phase, scale });
+      dummy.position.set(x + rx, 0, z + rz);
+      dummy.scale.setScalar(scale);
       dummy.updateMatrix();
       mesh.setMatrixAt(idx++, dummy.matrix);
     }
   }
   mesh.instanceMatrix.needsUpdate = true;
 
-  const colorDark   = new THREE.Color(0x1a1a1a);
-  const colorMid    = new THREE.Color(0x606060);
-  const colorBright = new THREE.Color(0xd4d4d4);
+  const colorDark   = new THREE.Color(0x050505);
+  const colorMid    = new THREE.Color(0x3a4455);
+  const colorBright = new THREE.Color(0xe8e8e8);
 
-  const LOOP = 12;
+  const LOOP = 10;
   const W = (2 * Math.PI) / LOOP;
 
   function getWaveY(x, z, t) {
@@ -149,17 +136,15 @@
       BASE_Y - yOffset,
       Math.cos(a) * DIST
     );
-    camera.lookAt(0, -9, -4);
+    camera.lookAt(0, -4, 0);
 
     let i = 0;
     for (let row = 0; row < ROWS; row++) {
       for (let col = 0; col < COLS; col++) {
         const pos = positions[i];
         const y = getWaveY(pos.x, pos.z, t) + Math.sin(t * (2 * W) + pos.phase) * 0.01875;
-        const yTilt = y * Math.cos(TILT_ANGLE) - pos.z * Math.sin(TILT_ANGLE);
-        const zTilt = y * Math.sin(TILT_ANGLE) + pos.z * Math.cos(TILT_ANGLE);
-        dummy.position.set(pos.x, yTilt, zTilt);
-        dummy.scale.setScalar(pos.scale * pos.scaleWide);
+        dummy.position.set(pos.x, y, pos.z);
+        dummy.scale.setScalar(pos.scale);
         dummy.updateMatrix();
         mesh.setMatrixAt(i, dummy.matrix);
 
@@ -167,11 +152,9 @@
         const zFade   = Math.max(0, Math.min(1, (pos.z + maxZ * 0.05) / (maxZ * 0.4)));
         const b = heightN * (zFade * zFade * zFade);
 
-        let c = b < 0.5
+        const c = b < 0.5
           ? colorDark.clone().lerp(colorMid,    b * 2)
           : colorMid.clone().lerp(colorBright, (b - 0.5) * 2);
-        const topDarken = Math.max(0, Math.min(1, (yTilt - 0.5) / 5)) * 0.4;
-        c.lerp(colorDark, topDarken);
         mesh.setColorAt(i, c);
         i++;
       }
