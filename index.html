@@ -14,10 +14,9 @@
 <body>
   <div class="background-wrap">
     <div class="background" aria-hidden="true"></div>
-    <video class="background-video" autoplay loop muted playsinline preload="auto" disablePictureInPicture disableRemotePlayback aria-hidden="true" id="bg-video">
-      <source src="video.mp4" type="video/mp4">
-    </video>
-    <div class="light-line" aria-hidden="true"></div>
+    <div id="canvas-3d-bg" class="canvas-3d-bg" aria-hidden="true">
+      <canvas id="bg-canvas" width="860" height="1864" style="display: block; width: 430px; height: 932px;"></canvas>
+    </div>
   </div>
 
   <header class="header">
@@ -41,6 +40,8 @@
     <p class="footer-text">© GNTB. All rights reserved. Privacy Terms. This site is for informational purposes only.</p>
   </footer>
 
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="bg-scene.js"></script>
   <script>
     (function () {
       var contactBtn = document.getElementById('contact-btn');
@@ -82,50 +83,6 @@
       }
 
       contactBtn.addEventListener('click', copyEmail);
-    })();
-  </script>
-  <script>
-    (function () {
-      var video = document.getElementById('bg-video');
-      if (!video) return;
-      video.setAttribute('muted', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-      video.muted = true;
-      video.volume = 0;
-      video.playsInline = true;
-      video.defaultMuted = true;
-      function ensurePlay() {
-        if (video.paused) {
-          video.muted = true;
-          video.play().catch(function () {});
-        }
-      }
-      video.addEventListener('loadeddata', ensurePlay);
-      video.addEventListener('canplay', ensurePlay);
-      video.addEventListener('canplaythrough', ensurePlay);
-      video.addEventListener('pause', ensurePlay);
-      video.addEventListener('ended', ensurePlay);
-      window.addEventListener('load', function () {
-        ensurePlay();
-        setTimeout(ensurePlay, 200);
-        setTimeout(ensurePlay, 800);
-        setTimeout(ensurePlay, 1500);
-      });
-      document.addEventListener('visibilitychange', function () {
-        if (document.visibilityState === 'visible') ensurePlay();
-      });
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () {
-          ensurePlay();
-          requestAnimationFrame(ensurePlay);
-        });
-      } else {
-        ensurePlay();
-        requestAnimationFrame(ensurePlay);
-      }
-      setTimeout(ensurePlay, 100);
-      setTimeout(ensurePlay, 500);
     })();
   </script>
 </body>

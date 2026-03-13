@@ -23,7 +23,7 @@ body {
   flex-direction: column;
 }
 
-/* --- Background & light line --- */
+/* --- Background --- */
 .background-wrap {
   position: fixed;
   inset: 0;
@@ -37,111 +37,18 @@ body {
   background: #000;
 }
 
-.background-video {
+.canvas-3d-bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+}
+.canvas-3d-bg canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
-  pointer-events: none;
-}
-
-/* Скрыть нативную кнопку воспроизведения на мобильных (фон — не интерактивное видео) */
-.background-video::-webkit-media-controls-panel,
-.background-video::-webkit-media-controls-play-button,
-.background-video::-webkit-media-controls-start-playback-button {
-  display: none !important;
-  opacity: 0;
-  pointer-events: none;
-}
-.background-video::-webkit-media-controls {
-  display: none !important;
-}
-@supports (-webkit-touch-callout: none) {
-  .background-video {
-    -webkit-touch-callout: none;
-  }
-}
-
-
-/* Light oval: траектория вдоль волны фона (низ слева → подъём вправо → гребень) */
-.light-line {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120vmax;
-  height: 40vmin;
-  margin-left: -60vmax;
-  margin-top: -20vmin;
-  background: radial-gradient(
-    ellipse 70% 70% at center,
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 255, 255, 0.06) 25%,
-    rgba(255, 255, 255, 0.02) 45%,
-    transparent 60%
-  );
-  border-radius: 50%;
-  box-shadow: 0 0 120px 60px rgba(255, 255, 255, 0.04);
-  mask-image: radial-gradient(
-    ellipse 100% 100% at center,
-    black 0%,
-    transparent 65%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 100% 100% at center,
-    black 0%,
-    transparent 65%
-  );
-  /* Угол по направлению волны: снизу слева вверх вправо (~-38°) */
-  transform: rotate(-38deg);
-  transform-origin: center center;
-  animation: lightOval 12s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes lightOval {
-  /* Движение вдоль волны: от низа слева → вверх вправо (гребень) → обратно */
-  0%, 100% {
-    transform: rotate(-38deg) translate(-70vw, 55vh);
-  }
-  50% {
-    transform: rotate(-38deg) translate(70vw, -45vh);
-  }
-}
-
-/* Второй эффект: узкая световая полоска вдоль гребня волны */
-.light-line::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -50%;
-  width: 200%;
-  height: 2px;
-  margin-top: -1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 42%,
-    rgba(255, 255, 255, 0.35) 48%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0.35) 52%,
-    transparent 58%,
-    transparent 100%
-  );
-  box-shadow: 0 0 30px 8px rgba(255, 255, 255, 0.08);
-  animation: lightCrest 14s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes lightCrest {
-  0%, 100% {
-    opacity: 0.6;
-    transform: translateX(-15%);
-  }
-  50% {
-    opacity: 1;
-    transform: translateX(15%);
-  }
 }
 
 /* --- Layout --- */
